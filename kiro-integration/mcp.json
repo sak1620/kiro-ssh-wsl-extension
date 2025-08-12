@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "kiro-ssh-wsl": {
+      "command": "node",
+      "args": ["./kiro-integration/mcpServer.js"],
+      "env": {
+        "NODE_ENV": "production"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "wsl_execute",
+        "wsl_list_distributions",
+        "wsl_convert_path",
+        "ssh_list_connections"
+      ]
+    }
+  }
+}

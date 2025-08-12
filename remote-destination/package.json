@@ -1,0 +1,25 @@
+{
+  "name": "kiro-remote-destination",
+  "version": "1.0.0",
+  "description": "Kiro Remote Destination Extension - SSH and WSL remote development environments",
+  "main": "kiroRemoteDestination.js",
+  "scripts": {
+    "start": "node remoteDestinationMCP.js",
+    "test": "node test-remote.js"
+  },
+  "keywords": [
+    "kiro",
+    "remote",
+    "ssh",
+    "wsl",
+    "development",
+    "mcp"
+  ],
+  "author": "Kiro SSH/WSL Extension",
+  "license": "MIT",
+  "dependencies": {},
+  "peerDependencies": {
+    "ssh2": "^1.11.0",
+    "ssh2-sftp-client": "^9.1.0"
+  }
+}

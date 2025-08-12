@@ -1,0 +1,21 @@
+{
+  "hooks": [
+    {
+      "name": "WSL File Sync",
+      "trigger": "file.save",
+      "script": "D:\\workspace\\repos\\ssh_client\\kiro-integration\\hooks.js",
+      "function": "onFileSave",
+      "enabled": false,
+      "description": "Automatically sync saved files to WSL"
+    },
+    {
+      "name": "WSL Test Runner",
+      "trigger": "file.save",
+      "script": "D:\\workspace\\repos\\ssh_client\\kiro-integration\\hooks.js",
+      "function": "onTestFileSave",
+      "enabled": false,
+      "condition": "file.path.includes('.test.') || file.path.includes('.spec.')",
+      "description": "Run tests in WSL when test files are saved"
+    }
+  ]
+}

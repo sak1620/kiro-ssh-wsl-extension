@@ -1,0 +1,160 @@
+{
+  "name": "kiro-ssh-wsl-extension",
+  "displayName": "SSH & WSL Remote Development",
+  "description": "Complete SSH and WSL integration for Kiro IDE - Connect to remote servers and WSL distributions seamlessly",
+  "version": "0.0.1",
+  "publisher": "sak1620",
+  "categories": [
+    "Remote Development",
+    "SSH",
+    "WSL",
+    "Development Tools",
+    "File Management"
+  ],
+  "keywords": [
+    "ssh",
+    "wsl",
+    "remote",
+    "linux",
+    "server",
+    "development",
+    "terminal",
+    "sftp",
+    "deployment"
+  ],
+  "main": "./out/extension.js",
+  "icon": "assets/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sak1620/kiro-ssh-wsl-extension"
+  },
+  "bugs": {
+    "url": "https://github.com/sak1620/kiro-ssh-wsl-extension/issues"
+  },
+  "homepage": "https://github.com/sak1620/kiro-ssh-wsl-extension#readme",
+  "license": "MIT",
+  "engines": {
+    "kiro": "^1.0.0",
+    "node": ">=16.0.0"
+  },
+  "capabilities": {
+    "mcp": true,
+    "hooks": true,
+    "remoteDestinations": true,
+    "fileOperations": true,
+    "terminalIntegration": true
+  },
+  "contributes": {
+    "mcpServers": [
+      {
+        "name": "kiro-ssh-wsl",
+        "displayName": "SSH & WSL Server",
+        "description": "MCP server for SSH and WSL operations",
+        "command": "node",
+        "args": ["./kiro-integration/mcpServer.js"],
+        "autoStart": true,
+        "autoApprove": [
+          "wsl_execute",
+          "wsl_list_distributions",
+          "wsl_convert_path",
+          "ssh_list_connections"
+        ]
+      },
+      {
+        "name": "kiro-remote-destination",
+        "displayName": "Remote Destinations",
+        "description": "SSH and WSL as remote development destinations",
+        "command": "node",
+        "args": ["./remote-destination/remoteDestinationMCP.js"],
+        "autoStart": true,
+        "autoApprove": [
+          "remote_list_destinations",
+          "remote_get_current_directory",
+          "remote_get_active_destination"
+        ]
+      }
+    ],
+    "hooks": [
+      {
+        "name": "WSL File Sync",
+        "event": "file.save",
+        "description": "Automatically sync saved files to WSL",
+        "enabled": false
+      },
+      {
+        "name": "WSL Test Runner",
+        "event": "file.save",
+        "description": "Run tests in WSL when test files are saved",
+        "condition": "file.path.includes('.test.') || file.path.includes('.spec.')",
+        "enabled": false
+      },
+      {
+        "name": "Auto Deploy",
+        "event": "file.save",
+        "description": "Deploy to server when deployment files change",
+        "condition": "file.path.includes('deploy.') || file.path.includes('Dockerfile')",
+        "enabled": false
+      }
+    ],
+    "commands": [
+      {
+        "command": "ssh-wsl.connectSSH",
+        "title": "Connect to SSH Server",
+        "category": "SSH & WSL"
+      },
+      {
+        "command": "ssh-wsl.connectWSL",
+        "title": "Connect to WSL",
+        "category": "SSH & WSL"
+      },
+      {
+        "command": "ssh-wsl.listConnections",
+        "title": "List All Connections",
+        "category": "SSH & WSL"
+      },
+      {
+        "command": "ssh-wsl.setupDevEnvironment",
+        "title": "Setup Development Environment",
+        "category": "SSH & WSL"
+      }
+    ],
+    "configuration": {
+      "title": "SSH & WSL Extension",
+      "properties": {
+        "sshwsl.autoSyncToWSL": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically sync files to WSL on save"
+        },
+        "sshwsl.defaultSSHPort": {
+          "type": "number",
+          "default": 22,
+          "description": "Default SSH port"
+        },
+        "sshwsl.wslDistribution": {
+          "type": "string",
+          "default": "",
+          "description": "Default WSL distribution"
+        },
+        "sshwsl.enableDeploymentHooks": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable automatic deployment hooks"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "install": "npm install",
+    "build": "npm run build",
+    "postinstall": "node kiro-integration/install.js install"
+  },
+  "dependencies": {
+    "ssh2": "^1.11.0",
+    "ssh2-sftp-client": "^9.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "typescript": "^4.9.4"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "mcpServers": {
+    "kiro-ssh-wsl": {
+      "command": "node",
+      "args": [
+        "D:\\workspace\\repos\\ssh_client\\kiro-integration\\mcpServer.js"
+      ],
+      "env": {
+        "NODE_ENV": "production"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "wsl_execute",
+        "wsl_list_distributions",
+        "wsl_convert_path",
+        "ssh_list_connections"
+      ]
+    },
+    "kiro-remote-destination": {
+      "command": "node",
+      "args": [
+        "D:\\workspace\\repos\\ssh_client\\remote-destination\\remoteDestinationMCP.js"
+      ],
+      "env": {
+        "NODE_ENV": "production"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "remote_list_destinations",
+        "remote_get_current_directory",
+        "remote_get_active_destination",
+        "remote_execute",
+        "remote_connect"
+      ]
+    }
+  }
+}
